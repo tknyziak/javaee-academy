@@ -5,6 +5,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.validation.constraints.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +17,7 @@ public class LoginBean implements Serializable {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
+	@Pattern(regexp = ".+@[^.]+\\..+")
 	private String login;
 	private String password;
 

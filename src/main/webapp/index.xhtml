@@ -10,6 +10,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 
 <head jsf:id="head">
@@ -18,15 +20,31 @@
 </head>
 
 <body>
-    <p>Hello from JSF: #{startupBean.dupa}</p>
+<p>Hello from JSF: #{startupBean.dupa}</p>
 
-    <form jsf:id="loginForm" jsf:prependId="false">
-        <input jsf:id="loginInput" type="text" placeholder="Login" value="#{loginBean.login}"/>
-        <input jsf:id="passwordIput" type="password" placeholder="Hasło" value="#{loginBean.password}"/>
-        <h:commandButton value="Zaloguj" action="#{loginBean.takeAction()}"/>
-    </form>
+<form jsf:id="loginForm" jsf:prependId="false">
+    <input jsf:id="loginInput" type="text" placeholder="Login" value="#{loginBean.login}"/>
+    <input jsf:id="passwordIput" type="password" placeholder="Hasło" value="#{loginBean.password}"/>
+    <h:commandButton value="Zaloguj" action="#{loginBean.takeAction()}"/>
+</form>
 
-    <p>Passed login: #{loginBean.login}, count: #{loginBean.count}</p>
+<p>Passed login: #{loginBean.login}, count: #{loginBean.count}</p>
+
+<form jsf:id="customerForm" jsf:prependId="false">
+
+    <input type="text" jsf:id="customerFilter" value="#{customerBean.filter}">
+        <f:ajax delay="250" execute="@this" render="customerList" listener="#{customerBean.takeAction()}" event="keyup"/>
+    </input>
+
+    <div jsf:id="customerList">
+        <ul>
+            <ui:repeat value="#{customerBean.allCustomers}" var="c">
+                <li>#{c.id}: #{c.name}</li>
+            </ui:repeat>
+        </ul>
+    </div>
+
+</form>
 
 </body>
 
